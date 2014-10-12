@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+    <category type="pizzas">
+        <item name="Tomato &amp; Cheese">
+            <price size="small">5.50</price>
+            <price size="large">9.75</price>
+        </item>
+        <item name="Onions">
+            <price size="small">6.85</price>
+            <price size="large">10.75</price>
+        </item>
+    </category>
+    <category type="salads">
+        <item name="Garden">
+            <price size="samll">3.5</price>
+            <price size="large">4.5</price>
+        </item>
+        <item name="Greek">
+            <price size="small">4.5</price>
+            <price size="large">5.5</price>
+        </item>
+    </category> 
+    <category type="Home Made Calzones">
+        <item name="Vegetarian">
+            <price size="large">7.35</price>
+        </item>
+        <item name="Sausage">
+            <price size="large">7.35</price>
+        </item>
+    </category> 
+    <category type="Wraps">
+        <item name="Turkey Club Wrap">
+            <price>4.95</price>
+        </item>
+        <item name="Chicken Cobb">
+            <price>4.95</price>
+        </item>
+    </category> 
+</menu>
