@@ -4,15 +4,14 @@ class Mpizza{
     /**
      * @var this is the container for the xml object
      */
-    private $xml;
+    public $xml;
     
     public function __construct(){
 
-        $this -> xml = simplexml_load_file('data.xml');
     }
-
-    public function printData(){
-        print_r ( $this-> xml );
+    public function loadData(){
+        $this -> xml = simplexml_load_file(MODELS_PATH."data.xml");
+        return $this-> xml;
     }
 }
 

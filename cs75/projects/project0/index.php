@@ -1,5 +1,5 @@
 <?php
 define("SITE_ROOT",__dir__);
-require("app/Configs/config.php");
+require("app/configs/config.php");
 
-$app = new Application();
+require(CONTROLLERS_PATH.'Cindex.php');

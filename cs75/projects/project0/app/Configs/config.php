@@ -1,8 +1,8 @@
 <?php
-define ('URL','http://localhost:8080/');
-define ('MODELS_PATH',URL.'app/Models/');
-define ('CONTROLLERS_PATH',URL.'app/Controllers/');
-define ('VIEWS_PATH',URL.'app/Views/');
+define ('URL','http://localhost:8080/hmooc-projects/cs75/projects/project0/');
+define ('MODELS_PATH',SITE_ROOT.'/app/models/');
+define ('CONTROLLERS_PATH',SITE_ROOT.'/app/controllers/');
+define ('VIEWS_PATH',SITE_ROOT.'/app/views/');
 
 define ('IMG_PATH',URL.'public/img/');
 define ('JS_PATH',URL.'public/js/');

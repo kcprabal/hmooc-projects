@@ -1,4 +1,4 @@
-<?php 
+ <?php 
 
 // if you want, you can try it this way: 
 // https://github.com/gaarf/XML-string-to-PHP-array
