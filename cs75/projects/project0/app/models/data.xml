@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+  <category name="pizzas">
+      <item name="Cheese &amp; Tomatos">
+          <price size="large">5.95</price>
+          <price size="small">6.55</price>
+          <description/>
+      </item>
+      <item name="Onion">
+          <price size="large">6.05</price>
+          <price size="small">7.05</price>
+          <description/>
+      </item>
+  </category>
+</menu>

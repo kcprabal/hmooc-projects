@@ -7,7 +7,8 @@ class Mpizza{
     private $xml;
     
     public function __construct(){
-        $this -> xml = simplexml_load_string('data.xml');
+
+        $this -> xml = simplexml_load_file('data.xml');
     }
 
     public function printData(){
