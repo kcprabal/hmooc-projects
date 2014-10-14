@@ -11,12 +11,19 @@ class CIndex{
         $this->xml = $this-> model -> getXML();
     }
 
-    function getCatName(){
-        $category = $this -> xml->category->item; 
-        $data = $category;
+    function categories(){
+        $data = $this -> model -> getCategories();
+        render('index',$data);
+    }
+    function name($category){
+        $data = $this -> model -> getName($category);
+        render('index',$data);
+    } 
+    function size($category,$name){
+        $data = $this -> model -> getPrice($category, $name);
         render('index',$data);
     }
 }
 
 $index = new CIndex();
-$index->getCatName();
+$index -> size('Salads','Greek');
