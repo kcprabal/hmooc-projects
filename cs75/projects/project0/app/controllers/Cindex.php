@@ -6,14 +6,17 @@ class CIndex{
     private $model;
     private $xml;
     function __construct(){
-        require(MODELS_PATH."Mpizza.php");
-        $this-> model = new Mpizza();
-        $this-> xml = $this-> model -> loadData();
+        require(MODELS_PATH."Mmenu.php");
+        $this-> model = new Mmenu();
+        $this->xml = $this-> model -> getXML();
     }
-    function printData(){
-        print_r($this->xml);
+
+    function getCatName(){
+        $category = $this -> xml->category->item; 
+        $data = $category;
+        render('index',$data);
     }
 }
 
 $index = new CIndex();
-$index->printData();
+$index->getCatName();

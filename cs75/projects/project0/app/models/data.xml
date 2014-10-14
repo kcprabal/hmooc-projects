@@ -1,14 +1,101 @@
 <menu>
   <category name="pizzas">
-      <item name="Cheese &amp; Tomatos">
-          <price size="large">5.95</price>
-          <price size="small">6.55</price>
-          <description/>
+      <item name="Cheese &amp; Tomatos" type="normal">
+          <price size="small">5.95</price>
+          <price size="large">6.55</price>
       </item>
-      <item name="Onion">
-          <price size="large">6.05</price>
-          <price size="small">7.05</price>
-          <description/>
+      <item name="Onion" type="normal">
+          <price size="small">6.05</price>
+          <price size="large">7.05</price>
+      </item>
+      <item name="Three Aces Special" type="special">
+          <price size="small">9.80</price>
+          <price size="large">15.80</price>
+      </item>
+      <item name="Mediterranean" type="special">
+          <price size="small">9.80</price>
+          <price size="large">15.80</price>
+      </item>
+      <item name="Meat Lovers" type="special">
+          <price size="small">9.80</price>
+          <price size="large">15.80</price>
+      </item>
+      <item name="Extra Cheese" type="extra">
+          <price size="small">1.05</price>
+          <price szie="large">1.35</price>
+      </item>
+  </category>
+  <category name="Salads">
+      <item name="Garden">
+          <price size="small">3.50</price>
+          <price size="large">4.50</price> 
+      </item>
+      <item name="Greek">
+          <price size="small">4.50</price>
+          <price size="large">5.50</price> 
+      </item>
+      <item name="Checf">
+          <price size="small">4.50</price>
+          <price size="large">5.50</price> 
+      </item>
+  </category>
+  <category name="Special Dinners">
+      <item name="Chiken Wing Dinner">
+          <price>7.25</price> 
+      </item>
+      <item name="Gyro Plate">
+          <price>7.25</price> 
+      </item>
+  </category>
+  <category name="Side Orders">
+      <item name="Onion Rings">
+          <price size="small">2.60</price>
+          <price size="large">2.95</price> 
+      </item>
+      <item name="French Fries">
+          <price size="small">2.25</price>
+          <price size="large">2.65</price> 
+      </item>
+      <item name="Chiken Wings">
+          <price>5.75</price>
+      </item>
+  </category>
+  <category name="Spaghetti or Ziti">
+      <item name="With Sauce">
+          <price>5.40</price> 
+      </item>
+      <item name="With Meat Ball">
+          <price>6.45</price> 
+      </item>
+  </category>
+  <category name="Homemade Calzones">
+      <item name="Vegetarian">
+          <price>7.35</price> 
+      </item>
+      <item name="Veal">
+          <price>7.35</price> 
+      </item>
+  </category>
+  <category name="Wraps">
+      <item name="Turkey Club Wrap">
+          <price>4.95</price> 
+      </item>
+      <item name="Chicken Cobb">
+          <price>4.95</price> 
+      </item>
+  </category>
+  <category name="Grinder">
+      <item name="Meatless"> 
+          <price size="small">4.50</price>
+          <price size="large">4.95</price>
+      </item>
+      <item name="Hamburger"> 
+          <price size="small">4.50</price>
+          <price size="large">4.95</price>
+      </item>
+      <item name="Chessburger">
+          <price size="small">4.75</price>
+          <price size="large">5.75</price>
       </item>
   </category>
 </menu>
