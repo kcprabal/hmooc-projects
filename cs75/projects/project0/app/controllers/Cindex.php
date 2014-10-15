@@ -11,23 +11,14 @@ class CIndex{
         $this->xml = $this-> model -> getXML();
     }
 
-    function dom(){
+    function all(){
         $data = $this -> model -> getXML();
         render('index',$data);
     }
-    function categories(){
-        $data = $this -> model -> getCategories();
+    
+    public function index($category = 'Pizzas'){
+        $data['index'] = $category;
+        $data['category'] = $this -> model -> getCategories();
+        $data['name'] = $this -> model -> getName($category); 
+        $data['price'] = $this -> model -> getAllPrice($category);
         render('index',$data);
-    }
-    function name($category){
-        $data = $this -> model -> getName($category);
-        render('index',$data);
-    } 
-    function size($category,$name){
-        $data = $this -> model -> getPrice($category, $name);
-        render('index',$data);
-    }
-}
-
-$index = new CIndex();
-$index -> dom();

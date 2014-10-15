@@ -55,13 +55,20 @@ class Mmenu{
      */
     public function getPrice($category,$name){
         $data = null;
-        $size = $this -> xml -> xpath('/menu/category[@name="'.$category.'"]/item[@name="'.$name.'"]');
+        $size = $this -> xml -> xpath('/menu/category[@name="'.$category.'"]/item[@name="'.$name.'"]/price');
+        //$data = get_object_vars($size[0]);
+        return $size;
+    }
+    public function getAllPrice($category){
+        $data = null;
+        $nodes = $this -> xml -> xpath('/menu/category[@name="'.$category.'"]/item');
         $i = 0;
-        foreach($size as $node){
-            $data[$i] = $size;
+        foreach ($nodes as $node){
+            $data[$i] = $node->price;
             $i++;
         }
         return $data;
     }
+
 }
 
