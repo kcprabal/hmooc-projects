@@ -11,6 +11,10 @@ class CIndex{
         $this->xml = $this-> model -> getXML();
     }
 
+    function dom(){
+        $data = $this -> model -> getXML();
+        render('index',$data);
+    }
     function categories(){
         $data = $this -> model -> getCategories();
         render('index',$data);
@@ -26,4 +30,4 @@ class CIndex{
 }
 
 $index = new CIndex();
-$index -> size('Salads','Greek');
+$index -> dom();
