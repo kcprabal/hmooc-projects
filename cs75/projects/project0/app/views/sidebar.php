@@ -2,7 +2,7 @@
       <ul class="sidebar-nav" class="container">
         <?php foreach ($category as $cat) :?>
           <li class="sidebar-brand">
-            <a href="<?php echo URL.'hi.php?category='.$cat;?>"><?php echo $cat;?></a>
+            <a href="<?php echo URL.'index.php?category='.$cat;?>"><?php echo $cat;?></a>
           </li>
         <?php endforeach;?>
       </ul>

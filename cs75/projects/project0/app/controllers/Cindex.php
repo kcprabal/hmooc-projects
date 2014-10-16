@@ -22,3 +22,5 @@ class CIndex{
         $data['name'] = $this -> model -> getName($category); 
         $data['price'] = $this -> model -> getAllPrice($category);
         render('index',$data);
+    }
+}

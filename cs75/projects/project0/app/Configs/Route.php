@@ -18,10 +18,13 @@ class Route{
     }
     public function app(){
        $index = new CIndex();
-       $index -> index($this -> category); 
+       if(isset($this -> category))
+           $index -> index($this -> category); 
+       else
+           $index -> index();
     }
     public function splitURL(){
-        $this -> controller = isset($_GET['controller'])? $_GET['controller'] : null ;
+        $this -> controller = isset($_GET[''])? $_GET['controller'] : null ;
         $this -> category = isset($_GET['category'])? $_GET['category'] : null ;
         $this-> name = isset($_GET['name'])? $_GET['name'] : null;
         $this -> size = isset($_GET['size'])? $_GET['size'] : null;

@@ -51,20 +51,27 @@ class Mmenu{
      * get the price of the different size of food
      * @param $category string the category of the food
      * @param $name string the name of the food
-     * return array 2 dimension array, each row is [<size>][price]
+     * return array 1 dimension array, each row is [<size>]=>[price]
      */
     public function getPrice($category,$name){
         $data = null;
         $size = $this -> xml -> xpath('/menu/category[@name="'.$category.'"]/item[@name="'.$name.'"]/price');
-        //$data = get_object_vars($size[0]);
-        return $size;
+        $data = get_object_vars($size[0]);
+        return $data;
     }
+    /**
+     * for the purpose of getting all the price information for the foods
+     * 1. the size of it.
+     * 2. the price of it.
+     * @var string the category of the food
+     * @return array containing 1. name 2. size 3. price
+     */ 
     public function getAllPrice($category){
         $data = null;
         $nodes = $this -> xml -> xpath('/menu/category[@name="'.$category.'"]/item');
         $i = 0;
         foreach ($nodes as $node){
-            $data[$i] = $node->price;
+            $data[$i] =get_object_vars( $node -> price);
             $i++;
         }
         return $data;

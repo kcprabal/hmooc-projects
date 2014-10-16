@@ -15,31 +15,35 @@
             <tbody>
                <?php $i = 1 ;?>
                <?php foreach($price as $pc) :?>
-            <?php $pc = (get_object_vars($pc));
-                  $nm = $name[$i -1 ];     
-            ?>
+               <?php $nm = $name[$i - 1];?>
                  <tr>
-                    <td><?php echo $i; $i++;?></td>
+                    <td><?php echo $i;?></td>
                     <td><?php echo $nm;?></td>
                     <td>
+                        <form id='cart' action="index.php" method="get">
+                        </form>
                         <?php 
-                            for($k = 0; $k < sizeof($pc); $k++)
-                                echo '<input type="radio" name="size">'.$pc[$k].'<br/>';
+                            for($k = 0; $k < sizeof($pc); $k++){
+                                echo '<input form="cart" type="radio" name="s_'.$i.key($pc).'"> '.key($pc).' : '.current($pc).'<br/>';
+                                next($pc);
+                            }
                         ?>
                     </td>
                     <td>
-                        <form action="hi.php" method="get">
-                        <select class="form-control">
+                    <select form='cart' name="q_<?= $i;?>"  class="form-control">
                         <?php
                             for($j = 0; $j < 9; $j++)
                                 echo "<option>$j</option>";
                         ?>
                         </select>
-                        </form>
+                    </td>
                 </tr>
+                <input class="hidden" name="cart" value="add" form='cart'>
+                <?php $i++;?>
                <?php endforeach ;?>
             </tbody>
       </table>
+      <button form='cart' class="btn btn-default" type='submit'>add to chart</button>
     </div>
 </div>
 <?php require('footer.php');
