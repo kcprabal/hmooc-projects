@@ -9,6 +9,7 @@ class CIndex{
         require(MODELS_PATH."Mmenu.php");
         $this-> model = new Mmenu();
         $this->xml = $this-> model -> getXML();
+        session_start();
     }
 
     function all(){
@@ -22,5 +23,14 @@ class CIndex{
         $data['name'] = $this -> model -> getName($category); 
         $data['price'] = $this -> model -> getAllPrice($category);
         render('index',$data);
+    }
+    public function addCart(){
+        if(isset($_SESSION['cart']))
+           array_push($_SESSION['cart'],$_GET);
+        else{
+           $_SESSION['cart'] = array();
+           array_push($_SESSION['cart'],$_GET);
+        }
+        render('cart',$_SESSION['cart']);
     }
 }

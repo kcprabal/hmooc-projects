@@ -8,23 +8,26 @@
 class Route{
 
     private $category;
-    private $controller;
+    private $cart;
     private $name;
     private $size;
+    private $index;
 
     public function __construct(){
         $this -> splitURL();
         $this -> app();
     }
     public function app(){
-       $index = new CIndex();
-       if(isset($this -> category))
-           $index -> index($this -> category); 
+       $this -> index = new CIndex();
+       if(isset($this -> cart))
+           $this -> index -> addCart();
+       else if(isset($this -> category))
+           $this -> index -> index($this -> category); 
        else
-           $index -> index();
+           $this -> index -> index();
     }
     public function splitURL(){
-        $this -> controller = isset($_GET[''])? $_GET['controller'] : null ;
+        $this -> cart = isset($_GET['cart'])? $_GET['cart'] : null ;
         $this -> category = isset($_GET['category'])? $_GET['category'] : null ;
         $this-> name = isset($_GET['name'])? $_GET['name'] : null;
         $this -> size = isset($_GET['size'])? $_GET['size'] : null;
