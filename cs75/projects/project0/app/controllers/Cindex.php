@@ -37,6 +37,9 @@ class CIndex{
         $data['price'] = $this -> model -> getAllPrice($category);
         render('index',$data);
     }
+    public function success(){
+        render('success',array());
+    }
     /**
      * function to perform add item to chart operation
      * @reference addValidation

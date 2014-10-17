@@ -33,4 +33,13 @@
   <?php endif;?>
   <a class='btn btn-default' href="<?php echo URL;?>">Return</a>
   <a class='btn btn-default' href="<?php echo URL.'?clear=true';?>">Clear</a>
+    <div style="height:200px;"></div>
+  <form id='checkout' action="index.php" method="get">
+  <label for="email">Your Email Address<br/></label>
+  <input name="email" type="email" class="form-control" id="email" form="checkout" placeholder="email address">
+  <label for="tel-number">Your telephone number<br/></label>
+ <input  name="tel-number" type="text" class="form-control" id="tel-number" form="checkout" placeholder="telephone number"> <br/>
+<input class="hidden" name="checkout" value="true" form="checkout">
+ <button form="checkout" class="btn btn-default" type="submit">Checkout</button>
+</form>
 <?php require 'footer.php';?>
