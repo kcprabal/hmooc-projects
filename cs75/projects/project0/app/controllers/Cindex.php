@@ -49,11 +49,26 @@ class CIndex{
             header("location:". URL);
             return;
         }
-        if(isset($_SESSION['cart']))
-           array_push($_SESSION['cart'],$inData);
+        if(isset($_SESSION['cart'])){
+            foreach($inData as $element){
+                if(key_exists($element['name'].$element['size'],$_SESSION['cart'])){
+                    $_SESSION['cart'][$element['name'].$element['size']]['quantity'] += $element['quantity'];
+                }
+                else
+                  $_SESSION['cart'][$element['name'].$element['size']] = $element;
+            } 
+        }
         else{
            $_SESSION['cart'] = array();
-           array_push($_SESSION['cart'],$inData);
+            foreach($inData as $element){
+                if(key_exists($element['name'].$element['size'],$_SESSION['cart'])){
+                    $_SESSION['cart'][$element['name'].$element['size']]['quantity'] += $element['quantity'];
+           foreach($inData as $element)
+               $_SESSION['cart'][$element['name']]= $element;
+                }
+                else
+                  $_SESSION['cart'][$element['name'].$element['size']] = $element;
+            } 
         }
         render('cart',$_SESSION['cart']);
     }
@@ -83,7 +98,7 @@ class CIndex{
         // Necessary fileds are being selected by user
         foreach($inData as $key => $value){
             // for finding size $key , and find which index it is 
-            if(preg_match('/s(\d)(.*)/',$key,$match) ){
+            if(preg_match('/s(\d)(.*)/',$value,$match) ){
                 $sizeIndicator = true;
                 $data['item'][$match[1]]['size'] = $match[2];
             }
@@ -102,20 +117,15 @@ class CIndex{
         // second foreach runs a size check on the data['item']'s each elements
         // it will refuse the user if the element is not sized two
         $outData = array();
-        foreach($data['item'] as $item){
+        foreach($data['item'] as $key => $item){
             if((count($item))!= 1){
                 $matchIndicator = false;
-                break;
             }
-            $name = $this -> model -> getAllPrice($data['category'])[key($item)-1]; 
-            $size = $data['size'];
-            $quantity = $data['quantity'];
-            $price_for_one = $this -> model -> getPrice($data['category'],$name); 
-            $_SESSION[0] = $name;
-            $_SESSION[1] = $size;
-            $_SESSION[2] = $price_for_one;
-            $_SESSION[3] = array_push( $quantity);
-            //array_push($data,compact('name','size','quantity','price_for_one'));
+            $name = $this -> model -> getName($data['category'])[$key - 1]; 
+            $size = $item['size'];
+            $quantity = $item['quantity'];
+            $price_for_one = $this -> model -> getPrice($data['category'],$name)[$size]; 
+            array_push($outData,compact('name','size','quantity','price_for_one'));
         }
         // if wrong filed is inserted by user, refuse him
         if($matchIndicator)
@@ -125,6 +135,6 @@ class CIndex{
         // 1) name 2) size 3) quantity 4) price for one
         //return the data that should be passed to the controller method
         //that actually renders the views
-        return $data;
+        return $outData;
     }
 }

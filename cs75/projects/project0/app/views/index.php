@@ -17,6 +17,8 @@
                 <td><h4>Quantity</h4></td>
             </thead>
             <tbody>
+              <form id='cart' action="index.php" method="get">
+              </form>
                <?php $i = 1 ;?>
                <?php foreach($price as $pc) :?>
                <?php $nm = $name[$i - 1];?>
@@ -24,11 +26,9 @@
                     <td><?php echo $i;?></td>
                     <td><?php echo $nm;?></td>
                     <td>
-                        <form id='cart' action="index.php" method="get">
-                        </form>
                         <?php 
                             for($k = 0; $k < sizeof($pc); $k++){
-                                echo '<input form="cart" type="radio" name="s'.$i.key($pc).'"> '.key($pc).' : '.current($pc).'<br/>';
+                                echo '<input form="cart" type="radio" name="s'.$i.'" value="s'.$i.key($pc).'"> '.key($pc).' : '.current($pc).'<br/>';
                                 next($pc);
                             }
                         ?>
@@ -36,17 +36,17 @@
                     <td>
                     <select form='cart' name="q<?= $i;?>"  class="form-control">
                         <?php
-                            for($j = 0; $j < 9; $j++)
+                            for($j = 0; $j <= 9; $j++)
                                 echo "<option>$j</option>";
                         ?>
                         </select>
                     </td>
                 </tr>
-                <input class="hidden" name="cart" value="add" form='cart'>
-                <input class="hidden" name="category" value="<?= $index;?>" form='cart'>
                 <?php $i++;?>
                <?php endforeach ;?>
             </tbody>
+            <input class="hidden" name="cart" value="add" form='cart'>
+            <input class="hidden" name="category" value="<?= $index;?>" form='cart'>
       </table>
       <button form='cart' class="btn btn-default" type='submit'>add to chart</button>
       <a class="btn btn-default" href="<?php echo URL.'?cart=view';?>">Cart</a>

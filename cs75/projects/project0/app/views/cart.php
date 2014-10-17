@@ -15,12 +15,22 @@
       <td>quantity</td>
       <td>price for one</td>
   </thead>
+      <?php $i = 0?>
+      <?php $total = 0;?>
+      <?php foreach($_SESSION['cart'] as $entry):;?>
+      <tr>
+      <td><?= $i + 1 ;?></td>
+      <td><?= $entry['name'];?>
+      <td><?= $entry['size'];?>
+      <td><?= $entry['quantity'];?>
+      <td><?= $entry['price_for_one'];?>
+      </tr>
+      <?php $total += $entry['quantity'] * $entry['price_for_one'];?>
+      <?php $i ++;?>
+      <?php endforeach;?>
   </table> 
-  <pre>
-     <?php print_r($_SESSION);?>
-  </pre>
+  <div class="pull-right"><h2>Total: <?= '$'.$total;?></h2></div> 
   <?php endif;?>
-  <div class="pull-right"><h2>Total: </h2></div> 
   <a class='btn btn-default' href="<?php echo URL;?>">Return</a>
   <a class='btn btn-default' href="<?php echo URL.'?clear=true';?>">Clear</a>
 <?php require 'footer.php';?>

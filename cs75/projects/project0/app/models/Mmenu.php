@@ -64,7 +64,7 @@ class Mmenu{
      * 1. the size of it.
      * 2. the price of it.
      * @var string the category of the food
-     * @return array containing 1. name 2. size 3. price
+     * @return array containing 1. size 2. price
      */ 
     public function getAllPrice($category){
         $data = null;
