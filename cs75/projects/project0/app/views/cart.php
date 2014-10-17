@@ -17,7 +17,7 @@
   </thead>
   </table> 
   <pre>
-     <?php print_r($data);?>
+     <?php print_r($_SESSION);?>
   </pre>
   <?php endif;?>
   <div class="pull-right"><h2>Total: </h2></div> 

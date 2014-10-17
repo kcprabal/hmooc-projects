@@ -101,15 +101,28 @@ class CIndex{
         $matchIndicator = true;
         // second foreach runs a size check on the data['item']'s each elements
         // it will refuse the user if the element is not sized two
+        $outData = array();
         foreach($data['item'] as $item){
             if((count($item))!= 1){
                 $matchIndicator = false;
                 break;
             }
+            $name = $this -> model -> getAllPrice($data['category'])[key($item)-1]; 
+            $size = $data['size'];
+            $quantity = $data['quantity'];
+            $price_for_one = $this -> model -> getPrice($data['category'],$name); 
+            $_SESSION[0] = $name;
+            $_SESSION[1] = $size;
+            $_SESSION[2] = $price_for_one;
+            $_SESSION[3] = array_push( $quantity);
+            //array_push($data,compact('name','size','quantity','price_for_one'));
         }
         // if wrong filed is inserted by user, refuse him
         if($matchIndicator)
             return array('error' => 'You sure sure you input the corrent thing?');
+        // outdata that will be finally returned.
+        // totally 4 fields are going to be included for each row
+        // 1) name 2) size 3) quantity 4) price for one
         //return the data that should be passed to the controller method
         //that actually renders the views
         return $data;
