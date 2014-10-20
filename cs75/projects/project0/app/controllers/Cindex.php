@@ -2,9 +2,9 @@
 error_reporting(E_ALL);
 ini_set("display_errors",1);
 class CIndex{
-    /** the model that will be used in this controller */
+    /** @var the model that will be used in this controller */
     private $model;
-    /** the raw xml data that the constructor will use*/
+    /** @var the raw xml data that the constructor will use*/
     private $xml;
     /**
      * constructor method.
@@ -76,7 +76,7 @@ class CIndex{
         render('cart',$_SESSION['cart']);
     }
     /**
-     * simple method for viewing the shoppig cart
+     * simple method for viewing the shopping cart
      * just see whether the shopping cart is empty or not and display the cart
      */
     public function viewCart(){
@@ -84,7 +84,7 @@ class CIndex{
         render('cart',$data);
     }
     /**
-     * Field validation for valid user input pormpt
+     * Field validation for valid user input prompt
      * @var inData array for the data passed in
      * @return array the data that has been nicely parsed and processed
      */
@@ -132,7 +132,7 @@ class CIndex{
         }
         // if wrong filed is inserted by user, refuse him
         if($matchIndicator)
-            return array('error' => 'You sure sure you input the corrent thing?');
+            return array('error' => 'You sure sure you input the correct thing?');
         // outdata that will be finally returned.
         // totally 4 fields are going to be included for each row
         // 1) name 2) size 3) quantity 4) price for one

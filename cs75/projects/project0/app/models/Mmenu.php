@@ -25,11 +25,8 @@ class Mmenu{
     public function getCategories(){
         $data = null;
         $nodes = $this -> xml -> xpath("//menu/category");
-        $i = 0;
-        foreach ($nodes as $node){
-            $data[$i] =(string) $node -> attributes()['name']; 
-            $i ++;
-        }      
+        foreach ($nodes as $key => $node)
+            $data[$key] =(string) $node -> attributes()['name'];    
         return $data;
     }
     /**
@@ -40,11 +37,8 @@ class Mmenu{
     public function getName($category){
         $data = null;
         $nodes = $this -> xml -> xpath('//menu/category[@name="'.$category.'"]/item');
-        $i = 0;
-        foreach($nodes as $node){
-            $data[$i] =(string) $node -> attributes()['name'];
-            $i ++;
-        }
+        foreach($nodes as $key => $node)
+            $data[$key] =(string) $node -> attributes()['name'];
        return $data; 
     }
     /**
@@ -69,11 +63,8 @@ class Mmenu{
     public function getAllPrice($category){
         $data = null;
         $nodes = $this -> xml -> xpath('/menu/category[@name="'.$category.'"]/item');
-        $i = 0;
-        foreach ($nodes as $node){
-            $data[$i] =get_object_vars( $node -> price);
-            $i++;
-        }
+        foreach ($nodes as $key => $node)
+            $data[$key] =get_object_vars( $node -> price);
         return $data;
     }
 
