@@ -37,9 +37,12 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-$route['login/(:any)'] = 'login/login/$1';
+
 $route['migrate'] = 'migrate';
-$route['register/(:any)'] = 'login/register/$1';
+$route['login'] = 'login/index';
+$route['register'] = 'login/register';
+$route['login_action'] = 'login/login_action';
+$route['register_action'] = 'login/register_action';
 $route['dashboard/(:num)'] = 'dashboard/index/$1';
 $route['buy/(:any)'] = 'transaction/buy/$1';
 $route['sell/(:any)'] = 'transaction/sell/$1';

@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost:8080/hmooc-projects/cs75/project/project0/';
+$config['base_url']	= 'http://localhost:8080/hmooc-projects/cs75/projects/project1/';
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ $config['base_url']	= 'http://localhost:8080/hmooc-projects/cs75/project/project
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------

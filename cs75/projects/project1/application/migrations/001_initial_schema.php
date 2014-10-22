@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Migration_Initial_Schema extends CI_Migration{
 
-    private function users_up(){
+    private function _users_up(){
         $success = $this -> dbforge -> add_field(array(
             'uid' => array(
                 'type' => 'INT',
@@ -27,7 +27,7 @@ class Migration_Initial_Schema extends CI_Migration{
        return( $this -> dbforge -> create_table('users',TRUE));
     }
 
-    private function owns_up(){
+    private function _owns_up(){
         $this -> dbforge -> add_field(array(
             'uid' => array(
                 'type' => 'INT',
@@ -57,25 +57,25 @@ class Migration_Initial_Schema extends CI_Migration{
     }
 
 
-    private function users_down(){
+    private function _users_down(){
        return $this -> dbforge -> drop_table('users');
     } 
 
-    private function owns_down(){
+    private function _owns_down(){
         return $this -> dbforge -> drop_table('owns');
     }
 
     public function up(){
-        if($this -> users_up())
+        if($this -> _users_up())
             echo 'users table created <br/>';
-        if($this -> owns_up())
+        if($this -> _owns_up())
             echo 'owns table created <br/>';
     }
 
     public function down(){
-        if($this -> owns_down())
+        if($this -> _owns_down())
             echo 'users table dropped <br/>';
-        if($this -> users_down())
+        if($this -> _users_down())
             echo 'owns table dropped <br/>';
     }
 } 
