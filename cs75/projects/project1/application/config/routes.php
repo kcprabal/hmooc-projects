@@ -38,6 +38,7 @@
 |
 */
 $route['login/(:any)'] = 'login/login/$1';
+$route['migrate'] = 'migrate';
 $route['register/(:any)'] = 'login/register/$1';
 $route['dashboard/(:num)'] = 'dashboard/index/$1';
 $route['buy/(:any)'] = 'transaction/buy/$1';
