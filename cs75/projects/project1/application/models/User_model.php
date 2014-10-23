@@ -8,6 +8,7 @@ class User_model extends CI_Model{
     public function __construct()
     {
         $this -> load -> database();
+        $this -> load -> library('session');
     }
 
     /**
@@ -36,14 +37,15 @@ class User_model extends CI_Model{
         return $this -> db -> insert('users', $data);
     }
 
-    public function read(){
-        if($this -> db -> simple_query($this -> input -> post('uname'))){
-            $sql = 'SELECT `upasswd` from `users` WHERE uname=?';
-            $hash = password_hash($this -> input -> post('upasswd'),PASSWORD_BCRYPT);
-            $result = $this -> db -> query($sql, array($this -> input -> post('uname')));
-            $passwd = $result -> row(0,'upasswd');
-            $this -> session -> set_userdata('test',$passwd);
-            if(password_verify($passwd,$hash))
+    public function authenticate(){
+        $username = $this -> input -> post('uname');
+        $password = $this -> input -> post('upasswd');
+
+        $sql = 'SELECT `upasswd` from `users` WHERE uname= ? ';
+        $query = $this -> db -> query($sql, array($username));
+        if($query -> num_rows() > 0){
+            $passwd = $query -> first_row() -> upasswd;
+            if(password_verify($password,$passwd))
                 return true;
             else
                 return false;

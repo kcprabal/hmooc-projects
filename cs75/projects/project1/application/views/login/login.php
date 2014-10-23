@@ -7,4 +7,3 @@
   <input type='password' name='upasswd'><br/>
   <input type='submit' name='submit' value='Submit'>
 </form>
-<?php print_r ($this -> session -> getall());?>

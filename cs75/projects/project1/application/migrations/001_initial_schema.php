@@ -4,6 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Migration_Initial_Schema extends CI_Migration{
 
     private function _users_up(){
+        $this -> load -> database();
         $success = $this -> dbforge -> add_field(array(
             'uid' => array(
                 'type' => 'INT',
@@ -24,7 +25,7 @@ class Migration_Initial_Schema extends CI_Migration{
         $this -> dbforge -> add_key('uid',TRUE);
         
         $i1 = $this -> dbforge -> create_table('users',TRUE);
-        $this -> dbforge -> add_field('ALTER TABLE `users` ADD UNIQUE INDEX (`uname`)');
+        $this -> db -> query('ALTER TABLE `users` ADD UNIQUE INDEX (`uname`)');
         return $i1;
     }
 

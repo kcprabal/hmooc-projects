@@ -42,7 +42,7 @@ class Login extends CI_Controller{
         }
         else{ 
             if($this -> user_model -> create()){
-                $this -> session -> set_userdata('logged_in','true');
+                $this -> session -> set_userdata('logged_in',TRUE);
                 $this -> session -> set_userdata('username',$this -> input -> post('uname'));
                 $this -> load -> view('dashboard/index');
             }
@@ -67,13 +67,13 @@ class Login extends CI_Controller{
             $data['error'] = validation_errors();
             $this -> load -> view ('login/login',$data);
         }else{
-            if($this -> user_model -> read()){
-                $this -> session -> set_userdata('logged_in','true');
+            if($this -> user_model -> authenticate()){
+                $this -> session -> set_userdata('logged_in',TRUE);
                 $this -> session -> set_userdata('username',$this -> input -> post('uname'));
-                header('location: '. $this -> site_url('dashboard'));
+                redirect('/dashboard/','refresh');
             }else{
-                $data['error'] = 'Sorry, wrong login info';
-                $this -> load -> view ('login/login',$data);
+               $data['error'] = 'Sorry, wrong login info';
+               $this -> load -> view ('login/login',$data);
             }
         }
         $this -> load -> view('template/footer');
