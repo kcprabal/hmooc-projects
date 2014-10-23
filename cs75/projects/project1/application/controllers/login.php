@@ -44,7 +44,7 @@ class Login extends CI_Controller{
             if($this -> user_model -> create()){
                 $this -> session -> set_userdata('logged_in',TRUE);
                 $this -> session -> set_userdata('username',$this -> input -> post('uname'));
-                $this -> load -> view('dashboard/index');
+                redirect('dashboard/','refresh');
             }
             else{
                 $data['error'] = 'write database error';

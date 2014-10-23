@@ -32,7 +32,7 @@ class User_model extends CI_Model{
         $data = array(
             'uname' => $this -> input -> post('uname'),
             'upasswd' => $hash, 
-            'ubalance' => 100000
+            'ubalance' => 10000
         );    
         return $this -> db -> insert('users', $data);
     }

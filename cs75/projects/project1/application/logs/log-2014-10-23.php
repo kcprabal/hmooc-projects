@@ -89,3 +89,5 @@ ERROR - 2014-10-23 23:05:00 --> Severity: Notice  --> Undefined variable: banlan
 ERROR - 2014-10-23 23:22:29 --> Severity: Notice  --> Undefined index: REMOTE_ADDR /vagrant/hmooc-projects/cs75/projects/project1/system/core/Input.php 351
 ERROR - 2014-10-23 23:22:29 --> Severity: Warning  --> Cannot modify header information - headers already sent by (output started at /vagrant/hmooc-projects/cs75/projects/project1/system/core/Exceptions.php:185) /vagrant/hmooc-projects/cs75/projects/project1/system/libraries/Session.php 688
 ERROR - 2014-10-23 23:24:52 --> Severity: Notice  --> Undefined variable: _SESSION /vagrant/hmooc-projects/cs75/projects/project1/application/views/dashboard/index.php 5
+ERROR - 2014-10-23 23:55:07 --> Severity: Notice  --> Undefined variable: username /vagrant/hmooc-projects/cs75/projects/project1/application/views/dashboard/index.php 2
+ERROR - 2014-10-23 23:55:07 --> Severity: Notice  --> Undefined variable: balance /vagrant/hmooc-projects/cs75/projects/project1/application/views/dashboard/index.php 4
