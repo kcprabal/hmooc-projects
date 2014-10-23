@@ -15,16 +15,17 @@ class Migration_Initial_Schema extends CI_Migration{
                 'constraint' => 30,
             ),
             'upasswd' => array(
-                'type' => 'CHAR',
-                'constraint' => 32,
+                'type' => 'VARCHAR',
+                'constraint' => 255,
             ),
             'ubalance' => array(
                 'type' => 'REAL',
             )));
         $this -> dbforge -> add_key('uid',TRUE);
-        $this -> dbforge -> add_key('uname');
-
-       return( $this -> dbforge -> create_table('users',TRUE));
+        
+        $i1 = $this -> dbforge -> create_table('users',TRUE);
+        $this -> dbforge -> add_field('ALTER TABLE `users` ADD UNIQUE INDEX (`uname`)');
+        return $i1;
     }
 
     private function _owns_up(){

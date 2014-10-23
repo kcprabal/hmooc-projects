@@ -40,6 +40,7 @@
 
 $route['migrate'] = 'migrate';
 $route['login'] = 'login/index';
+$route['logout'] = 'login/logout';
 $route['register'] = 'login/register';
 $route['login_action'] = 'login/login_action';
 $route['register_action'] = 'login/register_action';

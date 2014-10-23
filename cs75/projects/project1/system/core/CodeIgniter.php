@@ -49,7 +49,15 @@
  * ------------------------------------------------------
  */
 	require(BASEPATH.'core/Common.php');
-
+    require(BASEPATH.'core/password.php');
+/*
+|--------------------------------------------------------------------------
+| Predefined Password Hash Cost Factor 
+|--------------------------------------------------------------------------
+| It is the configuration for Hashing strenth. 10 is enough for 
+| Simple login functionality 
+*/
+define("HASH_COST_FACTOR","10");
 /*
  * ------------------------------------------------------
  *  Load the framework constants

@@ -1,4 +1,5 @@
 <h1>Welcome to the register page</h1>
+<p><?= isset($error) ? $error:'';?></p>
 <form method="post" accept-charset='utf-8' action="<?php echo site_url('register_action');?>">
   <label for='uname'>User Name</label><br/>
   <input type='input' name='uname'><br/>
