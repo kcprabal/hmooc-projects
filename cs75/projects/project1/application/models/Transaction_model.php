@@ -11,29 +11,65 @@ class Transaction_model extends CI_Model{
     public function __construct()
     {
         $this -> load -> database();
+        $this -> load -> library('session');
     }
     /**
      * @var string $sid the ticker of the stock
      * this mainly gets the specific tickes' csv file and translate it
      */
     public function get_csvinfo($sid){
-        $csv_url = $this -> make_csv_url($sid);
-        $this -> csv = fgetcsv($csv_url);
+        $csv_url = $this -> _make_csv_url($sid);
+        $file = fopen($csv_url, 'r');
+        $this -> csv = fgetcsv($file);
+        fclose($file);
     }
     /**
      * @uname string the user_name of the user
      * @sid string the stock ticker name of the stock
      */
     public function get_transaction($uname, $sid){
+        
+    }
+    public function query(){
+        $quote = $this -> input -> get('quote');
+        $this -> get_csvinfo($quote);
+        return $this -> csv; 
+    }
+        
+    public function buy($sid, $amount){
+        $this -> db -> trans_start();
 
+        $username = $this -> session -> userdata('username');
+        $users = $this -> db -> get_where('users',array('uname' => $username)) -> first_row();
+        $uid = $users -> uid;
+        $preBalance = $users -> ubalance; 
+        $this -> get_csvinfo($sid);
+        $last_price = $this -> csv[3]; 
+        $curBalance = $preBalance - $amount * $last_price;
+        if($curBalance < 0){
+            $this -> db -> trans_complete();
+            return false;
+        }else{
+            $data = array(
+                'sid' => $sid,
+                'amount' => $amount,
+                'uid' => $uid,
+                'last_price' => $last_price
+            ); 
+            $this -> db -> insert('owns',$data);
+            $this -> db -> where('uid',$uid);
+            $this -> db -> update('users',array('ubalance' => $curBalance));
+
+            $this -> db -> trans_complete();
+        }
+        return true;
     }
     /**
      * this is a self helper function that will allow the 
      * get_csv_info function quickly gets the csv info
      */
-    private function make_csv_url($sid){
-        return 'http://download.finace.yahoo.com/d/quotes.csv?s='.$sid.'f=snl1&e=.csv';
+    private function _make_csv_url($sid){
+        return 'http://download.finance.yahoo.com/d/quotes.csv?s='.$sid.'&f=e1snl1&e=.csv';
    }
-
 }
 

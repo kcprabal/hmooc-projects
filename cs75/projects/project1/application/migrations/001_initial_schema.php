@@ -31,6 +31,11 @@ class Migration_Initial_Schema extends CI_Migration{
 
     private function _owns_up(){
         $this -> dbforge -> add_field(array(
+            'tid' => array(
+                'type' => 'INT',
+                'unsigned' => TRUE,
+                'auto_increment' => TRUE
+            ),
             'uid' => array(
                 'type' => 'INT',
                 'unsigned' => TRUE,
@@ -47,14 +52,13 @@ class Migration_Initial_Schema extends CI_Migration{
                 'type' => 'DOUBLE',
             )));
 
-
-        $this -> dbforge -> add_key('uid',true);
-        $this -> dbforge -> add_key('sid',true);
+        $this -> dbforge -> add_key('tid',true);
         
         $success = $this -> dbforge -> create_table('owns',true);
         
-        $this -> dbforge -> add_field('ALTER TABLE `owns` ADD CONSTRAINT `owns_stock` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;');
+        $this -> db -> query('ALTER TABLE `owns` ADD CONSTRAINT `owns_stock` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;');
 
+        $this -> dbforge -> add_key('sid');
         return $success;
     }
 

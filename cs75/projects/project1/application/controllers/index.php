@@ -24,6 +24,9 @@ class Index extends CI_Controller {
 	 */
 	public function index()
 	{
+        $logged_in = $this -> session -> userdata('logged_in');
+        if($logged_in)
+            redirect('/dashboard/');
         $this -> load -> view('template/header');
         $this -> load -> view('index');
 		$this -> load -> view('template/footer');

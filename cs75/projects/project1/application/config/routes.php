@@ -44,10 +44,10 @@ $route['logout'] = 'login/logout';
 $route['register'] = 'login/register';
 $route['login_action'] = 'login/login_action';
 $route['register_action'] = 'login/register_action';
-$route['dashboard/(:num)'] = 'dashboard/index/$1';
-$route['buy/(:any)'] = 'transaction/buy/$1';
-$route['sell/(:any)'] = 'transaction/sell/$1';
-$route['query/(:any)'] = 'transaction/query/$1';
+$route['dashboard'] = 'dashboard/index';
+$route['buy/(:any)/(:num)'] = 'transaction/buy/$1/$2';
+$route['sell/(:any)/(:num)'] = 'transaction/sell/$1/$2';
+$route['query(.*)'] = 'transaction/query';
 $route['default_controller'] = 'index';
 $route['404_override'] = '';
 

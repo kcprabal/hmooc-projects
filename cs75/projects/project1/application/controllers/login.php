@@ -44,7 +44,7 @@ class Login extends CI_Controller{
             if($this -> user_model -> create()){
                 $this -> session -> set_userdata('logged_in',TRUE);
                 $this -> session -> set_userdata('username',$this -> input -> post('uname'));
-                redirect('dashboard/','refresh');
+                redirect('dashboard/');
             }
             else{
                 $data['error'] = 'write database error';
@@ -70,7 +70,7 @@ class Login extends CI_Controller{
             if($this -> user_model -> authenticate()){
                 $this -> session -> set_userdata('logged_in',TRUE);
                 $this -> session -> set_userdata('username',$this -> input -> post('uname'));
-                redirect('/dashboard/','refresh');
+                redirect('/dashboard/');
             }else{
                $data['error'] = 'Sorry, wrong login info';
                $this -> load -> view ('login/login',$data);
@@ -81,9 +81,7 @@ class Login extends CI_Controller{
 
     public function logout(){
         $this -> session -> sess_destroy();
-        $this -> load -> view('template/header');
-        $this -> load -> view('index');
-        $this -> load -> view('template/footer');
+        redirect('/');
     }
 }
 
