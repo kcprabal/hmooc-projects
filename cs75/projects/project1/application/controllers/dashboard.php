@@ -8,6 +8,7 @@ class Dashboard extends CI_Controller{
         $this -> load -> helper('url');
         $this -> load -> library('session');
         $this -> load -> model('user_model'); 
+        $this -> load -> model('transaction_model');
         $logged_in = $this -> session -> userdata('logged_in');
         if(!$logged_in){
            $this -> session -> sess_destroy();
@@ -20,7 +21,7 @@ class Dashboard extends CI_Controller{
         $userinfo = $this -> user_model -> get_user($this -> session -> userdata('username')); 
         $data['username'] = $userinfo['uname'];
         $data['balance'] = $userinfo['ubalance'];
-
+        $data['inventory'] = $this -> transaction_model -> get_inventory(); 
         $this -> load -> view('dashboard/index',$data);
         $this -> load -> view('template/footer');
     }

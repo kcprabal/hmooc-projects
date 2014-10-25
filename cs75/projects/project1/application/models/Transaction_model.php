@@ -71,5 +71,28 @@ class Transaction_model extends CI_Model{
     private function _make_csv_url($sid){
         return 'http://download.finance.yahoo.com/d/quotes.csv?s='.$sid.'&f=e1snl1&e=.csv';
    }
+    public function get_inventory(){
+        $username = $this -> session -> userdata('username');
+        
+        $this -> db -> select('*');
+        $this -> db -> from('owns');
+        $this -> db -> join('users','users.uid = owns.uid');
+        $this -> db -> where(array('uname'=>$username));
+        $query = $this -> db -> get();
+        $i = 0;
+        $data;
+        foreach($query -> result() as $row){
+            $data[$i]['symbol'] = $row -> sid;
+            $this -> get_csvinfo($data[$i]['symbol']);
+            $data[$i]['buy_price'] = $row -> last_price;
+            $data[$i]['amount'] = $row -> amount;
+            $data[$i]['company'] =$this -> csv[2];
+            $data[$i]['current_price'] = $this -> csv[3]; 
+            $data[$i]['total'] = $data[$i]['amount'] * $data[$i]['current_price'];
+            $data[$i]['tid'] = $row -> tid;
+            $i++;
+        }
+        return $data;
+    }
 }
 

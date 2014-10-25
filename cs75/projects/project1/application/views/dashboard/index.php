@@ -13,23 +13,39 @@
 <table>
 <thead>
   <tr>
-    <td>#<td>
+    <td>#</td>
     <td>Symbol</td>
     <td>Company</td>
     <td>Buy Price</td>
     <td>Current Price</td>
     <td>Amount Hold</td>
     <td>Total Value</td>
-  <tr>
+    <td>Buy more</td>
+    <td>Sell</td>
+  </tr>
 </thead>
 <tbody>
   <?php if(!isset($inventory) || count($inventory) == 0){?>
     <tr><td>(Empty Set)<td><tr>
   <?php }else{ ?>
-     <?php foreach ($inverntory as $row):?>
+     <?php $asset = 0;?>
+     <?php $i = 1;?>
+     <?php foreach ($inventory as $row):?>
        <tr>
-        <td>bla</td>
+        <td><?= $i;?></td>
+        <td><?= $row['symbol'];?></td>
+        <td><?= $row['company'];?></td>
+        <td><?= $row['buy_price'];?></td>
+        <td><?= $row['current_price'];?></td>
+        <td><?= $row['amount'];?></td>
+        <td><?= $row['total'];?></td>
+        <td><a href='<?= site_url('sell');?>'>sell</a></td>
+        <td><a href='<?= site_url().'query?quote='.$row['symbol'];?>'>buy more</a></td>
        </tr>
+    <?php $i ++;?>
+    <?php $asset += $row['total'];?>
      <?php endforeach;?>
   <?php }?>
 </tbody>
+</table>
+    <div class="total"><h2>Total:</h2> <?= $asset;?></div>
