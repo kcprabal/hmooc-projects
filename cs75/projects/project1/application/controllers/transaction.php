@@ -14,7 +14,15 @@ class Transaction extends CI_Controller{
            redirect('/login/','refresh');
         }
     }
-
+    /**
+     * this is the method that triggers the buy transaction
+     * it will call the buy method in transaction_model
+     * and the transacation model handles the real logic
+     * if the balance is not enough it will return false so that
+     * the controller knows where to redirect the user
+     * @var $sid symbol of the strock that users wants to buy
+     * @var $amount integer the amount the users acquires
+     */
     public function buy($sid, $amount){
         if(intval($amount) && $amount > 0){
             $i = $this -> transaction_model -> buy($sid, $amount);
@@ -29,8 +37,16 @@ class Transaction extends CI_Controller{
         }
     }
 
-    public function sell($sid){
-
+    public function sell($tid,$amount){
+        if(intval($amount) && $amount > 0){
+            $i = $this -> transaction_model -> sell($tid, $amount);
+            if($i!==FALSE){
+                redirect('/dashboard/');
+            }else{
+                $this -> session -> set_userdata('error','invalid amount input');
+                redirect('/dashboard/');
+            }
+        }
     }
     /**
      * query uses GET method for getting data from client side
@@ -46,5 +62,14 @@ class Transaction extends CI_Controller{
 
         $this -> load -> view('template/footer');
     }
-
+   public function sell_query($tid){
+       $this -> load -> view('template/header');
+       $tmp = $this -> transaction_model -> get_transaction($tid);
+       if($tmp === FALSE)
+           $data['error'] = 'You have no such record to sell!';
+       else
+           $data['transaction']= $tmp;
+       $this -> load -> view('dashboard/sell',$data);
+       $this -> load -> view('template/footer');  
+   }
 }

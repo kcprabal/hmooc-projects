@@ -21,7 +21,9 @@ class Dashboard extends CI_Controller{
         $userinfo = $this -> user_model -> get_user($this -> session -> userdata('username')); 
         $data['username'] = $userinfo['uname'];
         $data['balance'] = $userinfo['ubalance'];
-        $data['inventory'] = $this -> transaction_model -> get_inventory(); 
+        $tmp  = $this -> transaction_model -> get_inventory(); 
+        if($tmp !== FALSE) 
+            $data['inventory'] = $tmp;
         $this -> load -> view('dashboard/index',$data);
         $this -> load -> view('template/footer');
     }

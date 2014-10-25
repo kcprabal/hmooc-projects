@@ -39,13 +39,13 @@
         <td><?= $row['current_price'];?></td>
         <td><?= $row['amount'];?></td>
         <td><?= $row['total'];?></td>
-        <td><a href='<?= site_url('sell');?>'>sell</a></td>
         <td><a href='<?= site_url().'query?quote='.$row['symbol'];?>'>buy more</a></td>
+        <td><a href='<?= site_url('sell_query').'/'. $row['tid'];?>'>sell</a></td>
        </tr>
     <?php $i ++;?>
     <?php $asset += $row['total'];?>
      <?php endforeach;?>
-  <?php }?>
 </tbody>
 </table>
     <div class="total"><h2>Total:</h2> <?= $asset;?></div>
+  <?php }?>
