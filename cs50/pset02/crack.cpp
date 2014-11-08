@@ -29,35 +29,32 @@ int main(int argc, const char *argv[]){
     while(h < 8){
         for(int k = 32; k < 127; k++){
             guess[0] = k;
-                //printf("%s\n",guess);
-            if(strcmp(argv[1],crypt(salt,guess)) == 0){
+            if(strcmp(argv[1],crypt(guess,salt)) == 0){
                 printf("%s\n",guess);
                 return 0;
             }
         }
         if(guess[1] == '\0'){
-            printf("hi");
             h ++;
+            printf("2 digits\n");
             guess[1] =32;
         }
         else{
-            printf("oh hi");
             guess[1] ++;
         }
-        printf("%d\n",guess[1]);
-        for(int j = 1; j < h; j++){
-            if(guess[j] >= 127){
+        for(int j = 1; j <= h; j++){
+            if(guess[j] > 126){
                 guess[j] = 32;
                 if(guess[j+1] != '\0'){
                     guess[j+1] ++; 
                 }else{
+                    guess[h] = 32;
                     h ++;
+                    printf("%d digits\n",h+1);
                     guess[h] = '\0';
-                    guess[j+1] = 32;
                 }
             }
         }
-        
     }
     return 0;
 }
