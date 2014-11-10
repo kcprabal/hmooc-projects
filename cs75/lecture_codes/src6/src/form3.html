@@ -1,0 +1,63 @@
+<!--
+
+form3.html
+
+A form with client-side validation demonstrating "with" keyword.
+
+David J. Malan
+Computer Science S-75
+Harvard Summer School
+
+-->
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <script>
+
+        function validate()
+        {
+            with (document.forms.registration)
+            {
+                if (email.value == "")
+                {
+                    alert("You must provide an email adddress.");
+                    return false;
+                }
+                else if (password1.value == "")
+                {
+                    alert("You must provide a password.");
+                    return false;
+                }
+                else if (password1.value != password2.value)
+                {
+                    alert("You must provide the same password twice.");
+                    return false;
+                }
+                else if (!agreement.checked)
+                {
+                    alert("You must agree to our terms and conditions.");
+                    return false;
+                }
+                return true;
+            }
+        }
+
+    </script>
+    <title></title>
+  </head>
+  <body>
+    <form action="process.php" method="get" name="registration" onsubmit="return validate();">
+      Email: <input name="email" type="text">
+      <br>
+      Password: <input name="password1" type="password">
+      <br>
+      Password (again): <input name="password2" type="password">
+      <br>
+      I agree to the terms and conditions: <input name="agreement" type="checkbox">
+      <br><br>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>
