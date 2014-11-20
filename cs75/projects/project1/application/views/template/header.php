@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>CS75 | C$75 Finace</title>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
   <div class="container">

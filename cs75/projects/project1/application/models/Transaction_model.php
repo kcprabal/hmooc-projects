@@ -83,8 +83,8 @@ class Transaction_model extends CI_Model{
      * variable $csv in this class(transaction_model)
      */
     public function query(){
-        $quote = $this -> input -> get('quote');
-        $this -> get_csvinfo($quote);
+        $symbol = $this -> input -> get('symbol');
+        $this -> get_csvinfo($symbol);
         return $this -> csv; 
     }
     /**
