@@ -45,6 +45,7 @@
     var url = "<?= site_url();?>";
     var balance = <?= $balance;?>;
     var total = 0;
+   var amount = $('#amt');
     updateInventory();
     var price;
     $("#query").submit(function(){
@@ -74,8 +75,8 @@
       $.getJSON(url+"inventory", function(data){
          var i = 1;
          var inventories = data.inventory;
+         if(inventories !== null){
         $.each(inventories,function(key,inventory){
-          console.log(inventory);
           var node=  "<tr><td>" + (key+1)
                     +"</td><td>"+ inventory.symbol
                     +"</td><td>"+ inventory.company
@@ -88,19 +89,18 @@
           $('#inventory tbody').append(node);
           total += inventory.amount*inventory.current_price;
           i++;
-        });
+        })};
         $("#balance").html(''+balance);
         $("#total").html(''+total.toFixed(2));
       }); 
     }
-   $('#button').on('click',function (){
+   $('#button').on('click',function (event){
       var samt = $('#amt').val(); 
       var amt = parseFloat(samt);
       var quote = $('#sid').val();
       if(amt % 1 === 0 && amt >= 0 && $('#tips').val() <= balance){
         $.ajax({
           url: url + 'buy' + '/' + quote + '/' + amt,
-          data:{},
           success:function(data){
             if(data.error === null){
               $('#warning').html("Buy success");
@@ -116,10 +116,8 @@
      return false;
    });
 
-   var amount = $('#amt');
-   var button = $('#button');
    amount.bind("keypress",function(event){
-    if (event.which == 13) button.click();
+    if (event.which == 13) $("#button").click();
     else if(event.which==8 | (event.which <= 57 && event.which >= 48)){
       var cur;
       if(event.which == 8){

@@ -96,14 +96,16 @@ class Transaction_model extends CI_Model{
         $this -> db -> trans_start();
 
         $username = $this -> session -> userdata('username');
-        $users = $this -> db -> get_where('users',array('uname' => $username)) -> first_row();
-        $uid = $users -> uid;
-        $preBalance = $users -> ubalance; 
+        $user = $this -> db -> get_where('users',array('uname' => $username)) -> first_row();
+        $uid = $user -> uid;
+        $preBalance = $user -> ubalance; 
         $this -> get_csvinfo($sid);
         $cur_price = $this -> csv[3]; 
         $curBalance = $preBalance - $amount * $cur_price;
         $query = $this -> db -> get_where('owns',array('sid' => $sid, 'uid' => $uid));
-        $last_price = $query -> first_row() -> last_price;
+        $last_price = $cur_price;
+        if($query -> num_rows != 0)
+            $last_price = $query -> first_row() -> last_price;
         if($curBalance < 0){
             $this -> db -> trans_complete();
             return false;
@@ -114,7 +116,7 @@ class Transaction_model extends CI_Model{
                 'uid' => $uid,
                 'last_price' => $cur_price
             ); 
-            if($last_price != $cur_price){
+            if($last_price != $cur_price | $query -> num_rows == 0){
                 $this -> db -> insert('owns',$data);
                 $this -> db -> where('uid',$uid);
             }else{
