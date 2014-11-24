@@ -1,7 +1,7 @@
 <h1>Dashboard</h1>
 <h2>Hi dear <em><?= $username;?></em></h2>
 <p>Welcome back to your dashboard</p>
-<p>You have got <?= $balance;?> dollars left</p>
+<p>You have got <span id="balance"></span> dollars left</p>
 <div style="color:red;"><?= $this -> session -> userdata('error');?></div>
 <h2>Enquiry</h2>
 <form  id="query">
@@ -21,7 +21,7 @@
 <br/><br/>
 </div>
 <h2>Your inventory</h2>
-<table>
+<table id="inventory">
 <thead>
   <tr>
     <td>#</td>
@@ -36,37 +36,20 @@
   </tr>
 </thead>
 <tbody>
-  <?php if(!isset($inventory) || count($inventory) == 0){?>
-    <tr><td>(Empty Set)<td><tr>
-  <?php }else{ ?>
-     <?php $asset = 0;?>
-     <?php $i = 1;?>
-     <?php foreach ($inventory as $row):?>
-       <tr>
-        <td><?= $i;?></td>
-        <td><?= $row['symbol'];?></td>
-        <td><?= $row['company'];?></td>
-        <td><?= $row['buy_price'];?></td>
-        <td><?= $row['current_price'];?></td>
-        <td><?= $row['amount'];?></td>
-        <td><?= $row['total'];?></td>
-        <td><a href='<?= site_url().'query?symbol='.$row['symbol'];?>'>buy more</a></td>
-        <td><a href='<?= site_url('sell_query').'/'. $row['tid'];?>'>sell</a></td>
-       </tr>
-    <?php $i ++;?>
-    <?php $asset += $row['total'];?>
-     <?php endforeach;?>
 </tbody>
 </table>
-    <div class="total"><h2>Total:</h2> <?= $asset;?></div>
-  <?php }?>
+    <div><h2>Total:<span id="total"></span></h2></div>
 <script>
   "use strict";
   $(document).ready(function(){
+    var url = "<?= site_url();?>";
+    var balance = <?= $balance;?>;
+    var total = 0;
+    updateInventory();
     var price;
     $("#query").submit(function(){
       $.ajax({
-        url:"<?=site_url('query?');?>",
+        url:url+"query",
         data:{
           symbol:$("#symbol").val()
         },
@@ -85,25 +68,48 @@
         }
       });
       return false;
-    })
-
+    });
+    function updateInventory(){
+      $('#inventory tbody *').remove();
+      $.getJSON(url+"inventory", function(data){
+         var i = 1;
+         var inventories = data.inventory;
+        $.each(inventories,function(key,inventory){
+          console.log(inventory);
+          var node=  "<tr><td>" + (key+1)
+                    +"</td><td>"+ inventory.symbol
+                    +"</td><td>"+ inventory.company
+                    +"</td><td>"+ inventory.buy_price
+                    +"</td><td>"+ inventory.current_price
+                    +"</td><td>"+ inventory.amount
+                    +"</td><td>"+ inventory.amount*inventory.current_price
+                    +"</td><td><a href='#' class="+inventory.symbol+"-buy"+">Buy</a></td>"
+                    +"<td><a href='#' class="+inventory.symbol+"-sell"+">Sell</a></td></tr>";
+          $('#inventory tbody').append(node);
+          total += inventory.amount*inventory.current_price;
+          i++;
+        });
+        $("#balance").html(''+balance);
+        $("#total").html(''+total.toFixed(2));
+      }); 
+    }
    $('#button').on('click',function (){
       var samt = $('#amt').val(); 
       var amt = parseFloat(samt);
       var quote = $('#sid').val();
-      if(amt % 1 === 0 && amt >= 0 && $('#tips').val() <= <?=$balance;?>){
+      if(amt % 1 === 0 && amt >= 0 && $('#tips').val() <= balance){
         $.ajax({
-          url:'<?= site_url("buy");?>' + '/' + quote + '/' + amt,
+          url: url + 'buy' + '/' + quote + '/' + amt,
           data:{},
           success:function(data){
             if(data.error === null){
               $('#warning').html("Buy success");
-
+              updateInventory();
             }else{
               $('#warning').html(data.error);
             }
           }
-        })
+        });
      }else{
        $('#warning').html('Positive Integer input only'); 
      }
@@ -112,17 +118,20 @@
 
    var amount = $('#amt');
    var button = $('#button');
-
-   amount.bind("keydown",function(event){
+   amount.bind("keypress",function(event){
     if (event.which == 13) button.click();
     else if(event.which==8 | (event.which <= 57 && event.which >= 48)){
-      var total;
-      if(event.which != 8)
-      total = (amount.val()+event.key)*price;
-      else
-        total = (amount.val())*price;
+      var cur;
+      if(event.which == 8){
+        cur=$(this).val()+'';
+        cur=cur.substring(0,cur.length-1);
+      }
+      else{
+        cur=$(this).val()+''+event.key;
+      }
+      var total = parseFloat(cur)*price;
       $('#tips').html('' + total );
-      if(total >= <?= $balance;?>)
+      if(total >= balance)
         $('#warning').html('You are not that rich');
       else
         $('#warning').html('');

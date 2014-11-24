@@ -45,6 +45,7 @@ $route['register'] = 'login/register';
 $route['login_action'] = 'login/login_action';
 $route['register_action'] = 'login/register_action';
 $route['dashboard'] = 'dashboard/index';
+$route['inventory'] = 'dashboard/inventory';
 $route['buy/(:any)/(:num)'] = 'transaction/buy/$1/$2';
 $route['sell_query/(:any)'] = 'transaction/sell_query/$1';
 $route['sell/(:any)/(:num)'] = 'transaction/sell/$1/$2';

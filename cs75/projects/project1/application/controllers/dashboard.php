@@ -21,10 +21,16 @@ class Dashboard extends CI_Controller{
         $userinfo = $this -> user_model -> get_user($this -> session -> userdata('username')); 
         $data['username'] = $userinfo['uname'];
         $data['balance'] = $userinfo['ubalance'];
-        $tmp  = $this -> transaction_model -> get_inventory(); 
-        if($tmp !== FALSE) 
-            $data['inventory'] = $tmp;
         $this -> load -> view('dashboard/index',$data);
         $this -> load -> view('template/footer');
+    }
+    public function inventory(){
+        $tmp = $this -> transaction_model -> get_inventory();
+        if($tmp != FALSE)
+           $data['inventory'] = $tmp;
+       else
+        $data['inventory'] = null;
+        header("Content-type: application/json");
+        echo json_encode($data);
     }
 }
