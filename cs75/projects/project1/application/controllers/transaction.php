@@ -37,13 +37,13 @@ class Transaction extends CI_Controller{
     }
 
     public function sell($tid,$amount){
+        header("Content-type: application/json");
         if(intval($amount) && $amount > 0){
             $i = $this -> transaction_model -> sell($tid, $amount);
             if($i!==FALSE){
-                redirect('/dashboard/');
+                echo json_encode(array('error'=>null));
             }else{
-                $this -> session -> set_userdata('error','invalid amount input');
-                redirect('/dashboard/');
+                echo json_encode(array('error'=>'db_update error'));
             }
         }
     }

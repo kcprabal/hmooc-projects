@@ -72,3 +72,5 @@ ERROR - 2014-11-24 17:40:11 --> Severity: Warning  --> fopen(http://download.fin
  /vagrant/hmooc-projects/cs75/projects/project1/application/models/transaction_model.php 22
 ERROR - 2014-11-24 17:40:11 --> Severity: Warning  --> fgetcsv() expects parameter 1 to be resource, boolean given /vagrant/hmooc-projects/cs75/projects/project1/application/models/transaction_model.php 23
 ERROR - 2014-11-24 17:40:11 --> Severity: Warning  --> fclose() expects parameter 1 to be resource, boolean given /vagrant/hmooc-projects/cs75/projects/project1/application/models/transaction_model.php 24
+ERROR - 2014-11-24 18:05:45 --> Severity: Notice  --> Undefined index: uname /vagrant/hmooc-projects/cs75/projects/project1/application/controllers/dashboard.php 22
+ERROR - 2014-11-24 18:05:45 --> Severity: Notice  --> Undefined index: ubalance /vagrant/hmooc-projects/cs75/projects/project1/application/controllers/dashboard.php 23

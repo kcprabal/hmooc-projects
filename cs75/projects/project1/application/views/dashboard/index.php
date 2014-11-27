@@ -2,7 +2,7 @@
 <h2>Hi dear <em><?= $username;?></em></h2>
 <p>Welcome back to your dashboard</p>
 <p>You have got <span id="balance"></span> dollars left</p>
-<div style="color:red;"><?= $this -> session -> userdata('error');?></div>
+<div id="error" style="color:red;"><?= $this -> session -> userdata('error');?></div>
 <h2>Enquiry</h2>
 <form  id="query">
   <label for='quote'>Input the quote you want to query<br /></label>
@@ -42,10 +42,10 @@
 <script>
   "use strict";
   $(document).ready(function(){
-    var url = "<?= site_url();?>";
-    var balance = <?= $balance;?>;
-    var total = 0;
-   var amount = $('#amt');
+   var url = "<?= site_url();?>",
+      balance = <?= $balance;?>,
+      total = 0,
+      $amount = $('#amt');
     updateInventory();
     var price;
     $("#query").submit(function(){
@@ -61,6 +61,7 @@
             $("#price").html("Price: " + data.price);
             $("#company").html("Company: " + data.company);
             $("#sid").val(""+ $("#symbol").val());
+            $amount.focus();
           }else{
             $("#options").hide();
             $("#price").html("Symbol not found");
@@ -84,16 +85,55 @@
                     +"</td><td>"+ inventory.current_price
                     +"</td><td>"+ inventory.amount
                     +"</td><td>"+ inventory.amount*inventory.current_price
-                    +"</td><td><a href='#' class="+inventory.symbol+"-buy"+">Buy</a></td>"
-                    +"<td><a href='#' class="+inventory.symbol+"-sell"+">Sell</a></td></tr>";
+                    +"</td><td><a class='buy' href='#' data="+inventory.symbol+">Buy</a></td>"
+                    +"<td><a href='#' class='sell' amt="+inventory.amount+" data="+inventory.tid+">Sell</a></td></tr>";
           $('#inventory tbody').append(node);
           total += inventory.amount*inventory.current_price;
           i++;
         })};
         $("#balance").html(''+balance);
         $("#total").html(''+total.toFixed(2));
+        $('.buy').on('click',function(){
+          $('#symbol').val(''+$(this).attr('data'));
+          $('#query').submit();
+        });
+        $('.sell').on('click',function(){
+          $('#inventory tbody input').remove();
+          $('#inventory tbody button').remove();
+          var tid = $(this).attr('data'),
+          amt="<input id='"+ tid +"'/><button>confirm</button>",
+          amount = $(this).attr('amt');
+          $(this).parent().append(amt);
+          var $sellamt= $('#'+tid+'');
+          $sellamt.focus();
+          $('#inventory tbody button').on('click',function(){
+            var samt = $sellamt.val(),
+            amt = parseFloat(samt);
+            console.log($(this).attr('amt'));
+            if(amt % 1 === 0 && amt >= 0 && amt<= amount){
+            $.ajax({
+              url:url+'sell'+'/'+tid+'/'+amt,
+              success:function(data){
+                if(data.error === null){
+                  $('#error').html('Sell Success');
+                }else{
+                  $('#error').html(data.error);
+                }
+                updateInventory();
+              }
+            });
+          }else{
+            $('#error').html("invalid input amount!")
+          }
+          });
+          $('#inventory tbody input').on('keypress',function(event){
+            if(event.which==13) $('#inventory tbody button').click();
+          });
+          return false;
+        })
       }); 
     }
+
    $('#button').on('click',function (event){
       var samt = $('#amt').val(); 
       var amt = parseFloat(samt);
@@ -103,10 +143,10 @@
           url: url + 'buy' + '/' + quote + '/' + amt,
           success:function(data){
             if(data.error === null){
-              $('#warning').html("Buy success");
+              $('#error').html("Buy success");
               updateInventory();
             }else{
-              $('#warning').html(data.error);
+              $('#error').html(data.error);
             }
           }
         });
@@ -115,8 +155,7 @@
      }
      return false;
    });
-
-   amount.bind("keypress",function(event){
+   $amount.on("keypress",function(event){
     if (event.which == 13) $("#button").click();
     else if(event.which==8 | (event.which <= 57 && event.which >= 48)){
       var cur;

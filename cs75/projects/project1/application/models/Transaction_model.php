@@ -73,8 +73,15 @@ class Transaction_model extends CI_Model{
             $this -> db -> where(array('tid'=> $tid, 'uid' => $uid));
             $this -> db -> update('owns'); 
         }
-        $this -> db -> update('users',array('ubalance' => $curBalance));
-        $this -> db -> trans_complete();
+        if($this -> db -> update('users',array('ubalance' => $curBalance))){
+            $this -> db -> trans_complete();
+            return true;
+        }
+        else{
+           $this -> db -> trans_complete();
+           return false;
+        }
+        
     }
     /**
      * the query() is going to call get_csvinfo by passing the 
